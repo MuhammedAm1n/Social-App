@@ -10,10 +10,10 @@ class Repositry implements AbsRepositry {
 
   @override
   @override
-  Future<UserE?> RegistUser(
-      String Email, String Password, String Confirmpassword) async {
+  Future<void> RegistUser(String Email, String Password, String Confirmpassword,
+      String username) async {
     return await abstractRemoteData.RegisterUser(
-        Email, Password, Confirmpassword);
+        Email, Password, Confirmpassword, username);
   }
 
   @override
@@ -23,17 +23,17 @@ class Repositry implements AbsRepositry {
 
   @override
   Future<void> Addpost(String massge) {
-    return abstractRemoteData.Addpost(massge);
+    return abstractRemoteData.addPost(massge);
   }
 
   @override
-  Future<UserE?> CreateUser(String Username) async {
-    return await abstractRemoteData.CreateUser(Username);
+  Future<void> CreateUser(String Username) async {
+    await abstractRemoteData.createUser(Username);
   }
 
   @override
   Future<DocumentSnapshot<Map<String, dynamic>>> GetUserDetails() async {
-    return await abstractRemoteData.GetUserDetails();
+    return await abstractRemoteData.getUserDetails();
   }
 
   @override
@@ -49,5 +49,10 @@ class Repositry implements AbsRepositry {
   @override
   Stream<QuerySnapshot> getMessages(String UserID, String OtherUserID) {
     return abstractRemoteData.getMessages(UserID, OtherUserID);
+  }
+
+  @override
+  Future<void> deletePost(String postId) async {
+    await abstractRemoteData.deletePost(postId);
   }
 }

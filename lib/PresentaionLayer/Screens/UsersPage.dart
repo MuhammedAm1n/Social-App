@@ -10,10 +10,10 @@ class UsersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text("Messages"),
+          title: const Text("Messages"),
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           elevation: 0),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('Users').snapshots(),
           builder: (context, snapshot) {
@@ -24,13 +24,13 @@ class UsersPage extends StatelessWidget {
 
 //loading screen
             if (snapshot.connectionState == ConnectionState.waiting) {
-              Center(
+              const Center(
                 child: CircularProgressIndicator(),
               );
             }
 // Null data
             if (snapshot.data == null) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
@@ -66,7 +66,7 @@ class UsersPage extends StatelessWidget {
                             },
                             title: Text(
                               User!['username'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 20,
                               ),
                             ),
@@ -77,7 +77,7 @@ class UsersPage extends StatelessWidget {
                     );
                   });
             }
-            return Text('s');
+            return const Text('s');
           }),
     );
   }

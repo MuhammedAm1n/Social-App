@@ -10,7 +10,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Profile'),
+          title: const Text('Profile'),
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           elevation: 0,
         ),
@@ -39,24 +39,24 @@ class ProfilePage extends StatelessWidget {
                                     color:
                                         Theme.of(context).colorScheme.primary,
                                     borderRadius: BorderRadius.circular(25)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(25.0),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(25.0),
                                   child: Icon(
                                     Icons.person,
                                     size: 65,
                                   ),
                                 )),
 
-                            SizedBox(
+                            const SizedBox(
                               height: 35,
                             ),
                             //userName
                             Text(
                               user!['username'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             //email
@@ -68,7 +68,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                       );
                     } else {
-                      return Text('nodata');
+                      return const Text('nodata');
                     }
                   }),
         ));

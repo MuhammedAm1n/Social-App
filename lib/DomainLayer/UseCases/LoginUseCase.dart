@@ -12,9 +12,13 @@ class UseCases extends ChangeNotifier {
     return await absRepositry.LoginUser(Email, Password);
   }
 
-  Future<UserE?> CaseRegistUser(
-      String Email, String Password, String ConfirmPassword) async {
-    return await absRepositry.RegistUser(Email, Password, ConfirmPassword);
+  Future<void> CaseRegistUser(String Email, String Password,
+      String ConfirmPassword, String userName) async {
+    try {
+      await absRepositry.RegistUser(Email, Password, ConfirmPassword, userName);
+    } on Exception catch (e) {
+      throw e.toString();
+    }
   }
 
   Future<DocumentSnapshot<Map<String, dynamic>>> CaseGetUserDetails() async {
@@ -30,8 +34,8 @@ class UseCases extends ChangeNotifier {
     return absRepositry.getPostsStream();
   }
 
-  Future<UserE?> CreateUser(String userName) async {
-    return await absRepositry.CreateUser(userName);
+  Future<void> CreateUser(String userName) async {
+    await absRepositry.CreateUser(userName);
   }
 
   Future<void> UseCaseSendMessage(String receiverId, String message) async {
@@ -40,5 +44,13 @@ class UseCases extends ChangeNotifier {
 
   Stream<QuerySnapshot> UseCaseGetMessages(String UserID, String OtherUserID) {
     return absRepositry.getMessages(UserID, OtherUserID);
+  }
+
+  Future<void> UseCasedeletePost(String postId) async {
+    try {
+      await absRepositry.deletePost(postId);
+    } catch (e) {
+      throw Exception("Failed to delete post: $e");
+    }
   }
 }

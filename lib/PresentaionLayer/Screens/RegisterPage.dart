@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:social/DomainLayer/UseCases/LoginUseCase.dart';
+import 'package:social/PresentaionLayer/Component/Clicker/CustomSnackbar.dart';
 import 'package:social/PresentaionLayer/Component/Clicker/MyButton.dart';
 import 'package:social/PresentaionLayer/Component/Clicker/MyTexTField.dart';
 
@@ -18,7 +19,7 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Padding(
           padding: const EdgeInsets.only(top: 60.0),
           child: SingleChildScrollView(
@@ -35,41 +36,41 @@ class RegisterPage extends StatelessWidget {
                       color: Theme.of(context).colorScheme.inversePrimary,
                     ),
                     //Text
-                    Text(
+                    const Text(
                       'Social',
                       style: TextStyle(
                         fontSize: 30,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                     MyTEXTFIELD(
                         controller: usernameEditingController,
                         hint: 'Username',
                         observer: false),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     // TextField Emial
                     MyTEXTFIELD(
                         controller: textEditingController,
                         hint: 'Email',
                         observer: false),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     //TextField
                     MyTEXTFIELD(
                         controller: passEditingController,
                         hint: 'Password',
                         observer: true),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     //ConfirmPassword
                     MyTEXTFIELD(
                         controller: confirmpassEditingController,
                         hint: 'Confirm Password',
                         observer: true),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
 
                     //Text
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Row(
@@ -83,25 +84,28 @@ class RegisterPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                     // Button
                     MyButton(
                       text: 'Register',
                       onTap: () async {
-                        await value.CaseRegistUser(
-                            textEditingController.text,
-                            passEditingController.text,
-                            confirmpassEditingController.text);
-
-                        value.CreateUser(usernameEditingController.text);
+                        try {
+                          await value.CaseRegistUser(
+                              textEditingController.text,
+                              passEditingController.text,
+                              confirmpassEditingController.text,
+                              usernameEditingController.text);
+                        } catch (e) {
+                          CustomSnackbar.showSnackbar(context, e.toString());
+                        }
                       },
                     )
 
                     //Text
                     ,
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Row(

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:social/DataLayer/Drs/DataSource.dart';
 import 'package:social/DataLayer/Repositry/Repositry.dart';
@@ -30,9 +32,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final User? currentUser = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       appBar: (AppBar(
-        title: Text('Posts'),
+        title: const Text('Posts'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           Padding(
@@ -41,14 +45,14 @@ class HomePage extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(context, 'Users');
                 },
-                child: Icon(Icons.messenger_rounded)),
+                child: const Icon(Icons.messenger_rounded)),
           )
         ],
       )),
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       body: Column(
         children: [
-//TextField For Type poST
+          //TextField For Type poST
 
           Padding(
             padding: const EdgeInsets.all(25.0),
@@ -60,7 +64,7 @@ class HomePage extends StatelessWidget {
                       hint: "What's on your mind?",
                       observer: false),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Container(
@@ -72,7 +76,7 @@ class HomePage extends StatelessWidget {
                   child: Center(
                     child: MaterialButton(
                       onPressed: postMessage,
-                      child: Icon(Icons.done),
+                      child: const Icon(Icons.done),
                     ),
                   ),
                 )
@@ -92,7 +96,7 @@ class HomePage extends StatelessWidget {
                   }
                   // Show loading circual
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
@@ -101,7 +105,8 @@ class HomePage extends StatelessWidget {
                   // If no data
 
                   if (snapshot.data == null || posts.isEmpty) {
-                    return Center(child: Text('No Posts.. Post something!'));
+                    return const Center(
+                        child: Text('No Posts.. Post something!'));
                   }
                   if (snapshot.hasData && snapshot.data != null) {
                     // return as list
@@ -113,30 +118,47 @@ class HomePage extends StatelessWidget {
                             final post = posts[index];
                             // get data from each post
                             String message = post['PostMessage'];
-                            String userEmail = post['UserEmail'];
                             Timestamp timestamp = post['TimeStamp'];
                             DateTime dateTime = timestamp.toDate();
                             String formattedDate =
                                 "${dateTime.day} / ${dateTime.month}";
-                            return Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 8.0, right: 8, bottom: 8),
-                              child: ListTile(
-                                title: Text(message),
-                                subtitle: Text(
-                                  userEmail,
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary),
+                            return Slidable(
+                              endActionPane: ActionPane(
+                                motion: const StretchMotion(),
+                                children: [
+                                  SlidableAction(
+                                    onPressed: (context) {
+                                      if (currentUser!.email ==
+                                          post["UserName"]) {
+                                        value.UseCasedeletePost(post.id);
+                                      }
+                                    },
+                                    icon: Icons.delete,
+                                    backgroundColor: Colors.red,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                ],
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, right: 8, bottom: 8),
+                                child: ListTile(
+                                  title: Text(message),
+                                  subtitle: Text(
+                                    post["UserName"],
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary),
+                                  ),
+                                  leading: Text(" $formattedDate"),
                                 ),
-                                leading: Text(" $formattedDate"),
                               ),
                             );
                           }),
                     );
                   }
-                  return Text('Ok');
+                  return const Text('Ok');
                 }),
           )
         ],

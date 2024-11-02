@@ -108,7 +108,7 @@ class _MessagePageState extends State<MessagePage> {
                 : MainAxisAlignment.end,
             children: [
               Text(data['senderEmail']),
-              SizedBox(
+        const      SizedBox(
                 height: 5,
               ),
               (data['senderId'] == widget.reciverId)
@@ -124,6 +124,7 @@ class _MessagePageState extends State<MessagePage> {
     return Consumer<UseCases>(
       builder: (BuildContext context, UseCases value, Widget? child) =>
           StreamBuilder(
+            
               stream:
                   value.UseCaseGetMessages(widget.reciverId, currentUser!.uid),
               builder: (context, snapshot) {
