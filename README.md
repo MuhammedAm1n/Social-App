@@ -1,16 +1,15 @@
-# social
+Social App
+A Flutter-based social networking application that allows users to register, log in, create posts, send messages, and manage their profiles. The app utilizes Firebase for authentication, Firestore for data storage, and follows Clean Architecture principles to maintain a scalable and maintainable codebase.
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Features
+User Registration: Users can create an account using their email and password.
+User Login: Authenticate users securely with Firebase Authentication.
+Profile Management: Users can create and manage their profiles.
+Post Creation: Users can create and view posts in a real-time feed.
+Messaging: Users can send and receive messages with other users.
+Stream Updates: Utilize StreamBuilder to display real-time updates for posts and messages.
+Technologies Used
+Flutter: The framework for building the app.
+Firebase: Used for authentication, database (Firestore), and cloud functions.
+Provider: State management solution to manage the app's state effectively.
+Clean Architecture: Structure the project for better scalability and maintainability.
