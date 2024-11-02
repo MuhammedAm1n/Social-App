@@ -27,3 +27,4 @@ The project follows Clean Architecture principles, separating the concerns of pr
 - **Domain Layer**: Defines the business logic and entities.
 - **Data Layer**: Responsible for data sources (Firebase Firestore, authentication) and implementing the repository pattern.
 
+https://github.com/user-attachments/assets/82cce6f1-6cf4-4fed-a516-456568e4a3f9
